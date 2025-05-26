@@ -2,7 +2,7 @@ import table
 import variables as v
 import menus
 from pynput import keyboard as kb 
-#from main import menu 
+from database import database2 as db 
 from guardar import guardar
 def returnfalse(): return False
 class problem_view_menu(menus.menu):
@@ -31,8 +31,10 @@ class problem_view_menu(menus.menu):
         else:
             v.cuentas[v.usuario_actual][5].remove(self.problem[-1])
             v.archivos[self.problem[-1]][5].remove(v.usuario_actual)
-        
+
+        db.change_usuario(v.usuario_actual,v.cuentas[v.usuario_actual])
         return guardar()
+
     def marcar_hecho(self):
         if self.problem[-1] not in v.cuentas[v.usuario_actual][4]:
             v.cuentas[v.usuario_actual][4].append(self.problem[-1])
@@ -40,7 +42,8 @@ class problem_view_menu(menus.menu):
         else:
             v.cuentas[v.usuario_actual][4].remove(self.problem[-1])
             v.archivos[self.problem[-1]][4].remove(v.usuario_actual)
-        
+            
+        db.change_usuario(v.usuario_actual,v.cuentas[v.usuario_actual])
         return guardar()
     
 

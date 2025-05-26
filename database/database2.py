@@ -7,11 +7,12 @@ url= os.environ.get("SUPABASE_URL")
 key= os.environ.get("SUPABASE_KEY")
 supabase= create_client(url, key)
 
-def bajar_infonube():
+def download():
     cuentas=(supabase.table("Users").select("*").execute())
     temporal=cuentas.data
+    diccionario_usuarios = {registro["username"]: registro["Info"] for registro in temporal}
     with open('cuentas.json',"w") as f:
-        f.write(json.dumps(temporal, indent=4))
+        f.write(json.dumps(diccionario_usuarios, indent=4))
 
 def upload_problem(id,tochange):
     response=supabase.table("Problems").select(tochange).eq("id",id).execute()
@@ -23,10 +24,17 @@ def download_problem(id):
     valorprevio=(response.data[0])
     print(valorprevio)
     
-def change_usuario(usuario,tochange,thechange):
-    response=supabase.table("Users").update({tochange: thechange}).eq("name", usuario).execute()
+def change_usuario(usuario,change):
+    response=supabase.table("Users").update({"Info":change}).eq("username", usuario).execute()
     
-def crea_usuario(user):
-    response = (supabase.table("Users").insert({"name":user,"password":user[0],"points":user[1]}).execute())
+def register(user,info):
+    response = (supabase.table("Users").insert({"username":user,"Info":info}).execute())
 
-download_problem(4)
+def new(name,info):
+    response = (supabase.table("Problems").insert({"username":name,"Info":info}).execute())
+
+h=open("ar.json")
+archivos=json.load(h)
+h.close()
+
+print(archivos)
