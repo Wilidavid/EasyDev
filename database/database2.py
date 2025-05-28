@@ -14,11 +14,6 @@ def download():
     with open('cuentas.json',"w") as f:
         f.write(json.dumps(diccionario_usuarios, indent=4))
 
-def upload_problem(id,tochange):
-    response=supabase.table("Problems").select(tochange).eq("id",id).execute()
-    valorprevio=int(response.data[0][tochange])
-    response=supabase.table("Problems").update({tochange: valorprevio+1}).eq("id", id).execute()
-
 def download_problem(id):
     response=supabase.table("Problems").select("*").eq("id",id).execute()
     valorprevio=(response.data[0])
@@ -30,11 +25,5 @@ def change_usuario(usuario,change):
 def register(user,info):
     response = (supabase.table("Users").insert({"username":user,"Info":info}).execute())
 
-def new(name,info):
-    response = (supabase.table("Problems").insert({"username":name,"Info":info}).execute())
-
-h=open("ar.json")
-archivos=json.load(h)
-h.close()
-
-print(archivos)
+def change_problem(id,info):
+    response=supabase.table("Problems").update({"info": info[2:6]}).eq("id", id).execute()

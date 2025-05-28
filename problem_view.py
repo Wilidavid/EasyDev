@@ -14,6 +14,7 @@ class problem_view_menu(menus.menu):
         self.id=id
         self.problem=v.archivos[id]
         v.archivos[id][3]+=1
+        db.change_problem(id,v.archivos)
         self.table = self.prepare()
         if self.index==-1:self.index=self.skip[2]
         self.show()
@@ -31,7 +32,8 @@ class problem_view_menu(menus.menu):
         else:
             v.cuentas[v.usuario_actual][5].remove(self.problem[-1])
             v.archivos[self.problem[-1]][5].remove(v.usuario_actual)
-
+            
+        db.change_problem(id,v.archivos[id])
         db.change_usuario(v.usuario_actual,v.cuentas[v.usuario_actual])
         return guardar()
 
@@ -42,7 +44,8 @@ class problem_view_menu(menus.menu):
         else:
             v.cuentas[v.usuario_actual][4].remove(self.problem[-1])
             v.archivos[self.problem[-1]][4].remove(v.usuario_actual)
-            
+
+        db.change_problem(id,v.archivos[id])    
         db.change_usuario(v.usuario_actual,v.cuentas[v.usuario_actual])
         return guardar()
     
@@ -59,7 +62,6 @@ class problem_view_menu(menus.menu):
     def down(self):
         self.index+= 1 if self.index<len(self.table)-1 else 0
         self.show()
-        #print(self.index,len(self.table))
         return True
     def repeat(self):
         problem_view_menu(id=self.id, ix = self.index)

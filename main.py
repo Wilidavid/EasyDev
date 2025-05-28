@@ -4,7 +4,7 @@ import variables as v
 import menus
 import problem_table
 import problem_view
-import random
+import random, time
 from guardar import guardar
 from database import database2 as db
 
@@ -21,20 +21,22 @@ def login():
             main_menu()
             return
         contra=input('Por favor digite la contraseña: ')
-        if usuario not in v.cuentas.keys():
-            usuario='default'
-            contra='asd'
+        if usuario not in v.cuentas.keys() or v.cuentas[usuario][0]!=contra:
+            print("\n\nUsuario o contraseña incorrectos, intente de nuevo porfavor\n\n")
+            time.sleep(2)   
     v.usuario_actual=usuario
     menu()
 
-
 def register():
+    db.download()
     input()
     os.system('cls')
     usuario=input('Por favor digite el usuario de la cuenta que quiere crear, digite "Volver" para volver al menu de inicio: ')
     if usuario == 'volver':return False
     contraseña=input('Por favor ingrese la contraseña que su nueva cuenta va a tener: ')
     if usuario in v.cuentas.keys():
+        print("\n\nNombre de usuario en uso, volviendo al menu...\n\n")
+        time.sleep(2)
         main_menu()
         return False
     v.cuentas[usuario]=[contraseña,-1,0,[0,True], [], [], 0 ]

@@ -1,5 +1,4 @@
 import json
-#link, diff, Vistas, resuelto, marcado favorito
 x=[1,2,False]
 print(x[0:20])
 if True:
