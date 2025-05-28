@@ -13,11 +13,6 @@ def download():
     diccionario_usuarios = {registro["username"]: registro["Info"] for registro in temporal}
     with open('cuentas.json',"w") as f:
         f.write(json.dumps(diccionario_usuarios, indent=4))
-
-def download_problem(id):
-    response=supabase.table("Problems").select("*").eq("id",id).execute()
-    valorprevio=(response.data[0])
-    print(valorprevio)
     
 def change_usuario(usuario,change):
     response=supabase.table("Users").update({"Info":change}).eq("username", usuario).execute()
@@ -27,3 +22,6 @@ def register(user,info):
 
 def change_problem(id,info):
     response=supabase.table("Problems").update({"info": info[2:6]}).eq("id", id).execute()
+
+def new(k):
+    response = (supabase.table("Problems").insert({"id":k[-1],"info":k[2:6]}).execute())

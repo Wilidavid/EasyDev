@@ -17,7 +17,7 @@ class problem_view_menu(menus.menu):
         self.table = self.prepare()
         if self.index==-1:self.index=self.skip[2]
         self.show()
-        # db.change_problem(id,v.archivos[id])
+        #db.change_problem(self.problem[-1],self.problem)
         with kb.Listener(self.listen) as escuchador:
             escuchador.join()
         self.rt=self.run(*self.args)
@@ -32,7 +32,7 @@ class problem_view_menu(menus.menu):
             v.cuentas[v.usuario_actual][5].remove(self.problem[-1])
             v.archivos[self.problem[-1]][5].remove(v.usuario_actual)
             
-        # db.change_problem(id,v.archivos[id])
+        #db.change_problem(self.problem[-1],self.problem)
         db.change_usuario(v.usuario_actual,v.cuentas[v.usuario_actual])
         return guardar()
 
@@ -44,7 +44,7 @@ class problem_view_menu(menus.menu):
             v.cuentas[v.usuario_actual][4].remove(self.problem[-1])
             v.archivos[self.problem[-1]][4].remove(v.usuario_actual)
 
-        # db.change_problem(id,v.archivos[id])    
+        #db.change_problem(self.problem[-1],self.problem)    
         db.change_usuario(v.usuario_actual,v.cuentas[v.usuario_actual])
         return guardar()
     
@@ -98,3 +98,4 @@ class problem_view_menu(menus.menu):
         return tabla
     def show(self):
         return table.show(elements=self.table,selectedcord=self.index,skip=self.skip)
+
