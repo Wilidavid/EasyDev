@@ -144,7 +144,8 @@ def problemos():
 def random_problem():
     f = problem_table.make_table(just_the_table=True).elements_raw
     id= f[random.randint(0,len(f)-1)][7]
-    problem_view.problem_view_menu(id)
+    p=True
+    while problem_view.problem_view_menu(id,p=p).rt:p=False
     menu()
 
 
