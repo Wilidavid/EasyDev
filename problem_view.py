@@ -6,15 +6,18 @@ from database import database2 as db
 from guardar import guardar
 def returnfalse(): return False
 class problem_view_menu(menus.menu):
-    def __init__(self, id, ix=-1):
+    def __init__(self, id, ix=-1, p=True):
         self.keys = {kb.Key.up: self.up,kb.Key.down: self.down ,kb.Key.enter:self.enter}
         self.functs = [self.marcar_hecho,self.marcar_favorito, returnfalse]
         
         self.index=ix
         self.id=id
         self.problem=v.archivos[id]
+        main
         v.archivos[id][3]+=1
-        db.change_problem(id,v.archivos)
+        db.change_problem(id,v.archivos[id])
+        if p:v.archivos[id][3]+=1
+        patch-1
         self.table = self.prepare()
         if self.index==-1:self.index=self.skip[2]
         self.show()
