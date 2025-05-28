@@ -35,8 +35,9 @@ class make_table(menus.menu):
             self.show()
             with kb.Listener(self.listen) as escuchador:
                 escuchador.join()
+            p=True
             if not self.paraaa:
-                while problem_view.problem_view_menu(id=self.get_id()).rt:pass
+                while problem_view.problem_view_menu(id=self.get_id(), p=p).rt:p=False
             else:break
         return False
     
