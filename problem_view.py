@@ -13,11 +13,9 @@ class problem_view_menu(menus.menu):
         self.index=ix
         self.id=id
         self.problem=v.archivos[id]
-        main
         v.archivos[id][3]+=1
         db.change_problem(id,v.archivos[id])
         if p:v.archivos[id][3]+=1
-        patch-1
         self.table = self.prepare()
         if self.index==-1:self.index=self.skip[2]
         self.show()
