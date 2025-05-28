@@ -82,8 +82,8 @@ class problem_view_menu(menus.menu):
             c+=len(i)+1
             if c>=linelength:
                 lines.append("")
-            c=len(i)+1
-            ix+=1
+                c=len(i)+1
+                ix+=1
             lines[ix]+=i+" "
         lines.append(f'LINK: {problem[1]}')
         lines.append(f'Dificultad: {v.translator[problem[2]]}')
