@@ -29,7 +29,7 @@ def download_problem(id):
         problemas_locales = json.load(f)
     for i, problema_local in enumerate(problemas_locales):
         if problema_local[7] == id:
-            problemas_locales[i][2:6] = nuevos_valores
+            problemas_locales[i][3:6] = nuevos_valores
             break    
     v.archivos[id]=problemas_locales
     with open("archivos.json", 'w') as f:
