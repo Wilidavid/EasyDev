@@ -8,5 +8,6 @@ def leaderboard(favorites, num=15):
     elements = [['#', 'Usuario', '# De '+ str('Problemas hechos' if favorites else 'Racha')] ]+ table[:num]
     if v.usuario_actual not in [x[1] for x in elements]:
         elements.append(["..."]*3)
-        elements.append(table[table.index(v.usuario_actual)])
+        ff = [ix for ix, x in enumerate(table) if x[1]==v.usuario_actual][0]
+        elements.append(table[ff])
     tt.show(elements=elements)

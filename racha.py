@@ -6,12 +6,12 @@ def savedate():
     f=v.cuentas[v.usuario_actual][7][0]
     if f!='':
         rp = int(calctime(v.cuentas[v.usuario_actual][7][0]))
-        print(rp)
+        #print(rp)
         if rp==0:
             v.cuentas[v.usuario_actual][7][1]=0
         elif rp==1:
             v.cuentas[v.usuario_actual][7][1]+=1
-    print(v.cuentas[v.usuario_actual])
+    #print(v.cuentas[v.usuario_actual])
     v.cuentas[v.usuario_actual][7][0]=str(dt.datetime.now().date())
 
 def calctime(dt1):

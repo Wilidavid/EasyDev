@@ -11,6 +11,11 @@ import random
 k=open("archivos.json")
 archivos=json.load(k)
 k.close
+def downloadall():
+    problemas=(supabase.table("Problems").select("*").execute())
+    temporal=problemas.data
+    with open('cuentas.json',"w") as f:
+        f.write(json.dumps(temporal, indent=4))
 
 def download():
     cuentas=(supabase.table("Users").select("*").execute())
@@ -27,10 +32,10 @@ def download_problem(id):
     nuevos_valores = datos_nube['info']
     with open("archivos.json", 'r') as f:
         problemas_locales = json.load(f)
-    for i, problema_local in enumerate(problemas_locales):
-        if problema_local[7] == id:
-            problemas_locales[i][3:6] = nuevos_valores
-            break    
+    
+    for ix, i in enumerate(nuevos_valores):
+        problemas_locales[id][ix+3] = i
+        
     with open("archivos.json", 'w') as f:
         json.dump(problemas_locales, f, indent=4)
     

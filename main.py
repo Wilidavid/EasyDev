@@ -22,7 +22,7 @@ def login():
     usuario='default'
     while v.cuentas[usuario][0]!=contra:
         os.system('cls')
-        usuario=input('Por favor digite su usuario, ingrese "Volver" para volver al menu de inicio: ').lower()
+        usuario=input('Por favor digite su usuario, ingrese "Volver" para volver al menu de inicio: ')
         if usuario.lower() == 'volver':
             main_menu()
             return
@@ -39,14 +39,15 @@ def register():
     db.download()
     input()
     os.system('cls')
-    usuario=input('Por favor digite el usuario de la cuenta que quiere crear, digite "Volver" para volver al menu de inicio: ').lower()
+    usuario=input('Por favor digite el usuario de la cuenta que quiere crear, digite "Volver" para volver al menu de inicio: ')
     if usuario.lower() == 'volver':return False
-    contraseña=input('Por favor ingrese la contraseña que su nueva cuenta va a tener: ')
+    
     if usuario in v.cuentas.keys():
         print("\n\nNombre de usuario en uso, volviendo al menu...\n\n")
         time.sleep(2)
         main_menu()
         return False
+    contraseña=input('Por favor ingrese la contraseña que su nueva cuenta va a tener: ')
     v.cuentas[usuario]=[contraseña,-1,0,[0,True], [], [], 0 , ["",0]]
     v.usuario_actual=usuario
     db.register(usuario,v.cuentas[usuario])
@@ -157,4 +158,5 @@ def menu():
     opt=[['Lista de problemas',problemos],['Problema Aleatorio', random_problem], ['Opciones de cuenta', call_back_opt], ['Rankings', leaderboard] ,['Salir', exit]]
     while True:menus.menu(opt=opt,name='Menu principal')
 
+db.downloadall()
 main_menu()
