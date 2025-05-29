@@ -1,7 +1,6 @@
 import os 
 from getpass import getpass as gp
 import variables as v
-from database import database2 as db
 import menus
 import problem_table
 import problem_view
@@ -10,9 +9,7 @@ import racha
 import leaderboards
 from pynput import keyboard as kb
 from guardar import guardar
-
-
-
+from database import database2 as db
 
 def login():
     db.download()
@@ -158,5 +155,5 @@ def menu():
     opt=[['Lista de problemas',problemos],['Problema Aleatorio', random_problem], ['Opciones de cuenta', call_back_opt], ['Rankings', leaderboard] ,['Salir', exit]]
     while True:menus.menu(opt=opt,name='Menu principal')
 
-db.downloadall()
+db.downloadall
 main_menu()

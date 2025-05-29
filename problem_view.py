@@ -2,7 +2,7 @@ import table
 import variables as v
 import menus
 from pynput import keyboard as kb 
-from database import database2 as db 
+from .database import database2 as db 
 from guardar import guardar
 def returnfalse(): return False
 class problem_view_menu(menus.menu):
@@ -14,7 +14,7 @@ class problem_view_menu(menus.menu):
         self.id=id
         self.problem=v.archivos[id]   
         if p:v.archivos[id][3]+=1
-        db.change_problem(self.problem[7], [self.problem[3:6]])
+        db.change_problem(self.problem[7], self.problem[3:6])
         self.table = self.prepare()
         if self.index==-1:self.index=self.skip[2]
         self.show()

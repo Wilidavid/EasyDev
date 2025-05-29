@@ -2,20 +2,31 @@ import json
 from dotenv import load_dotenv
 load_dotenv()
 import os
-import variables as v
 from supabase import create_client 
 url= os.environ.get("SUPABASE_URL")
 key= os.environ.get("SUPABASE_KEY")
 supabase= create_client(url, key)
-import random
-k=open("archivos.json")
-archivos=json.load(k)
-k.close
 def downloadall():
-    problemas=(supabase.table("Problems").select("*").execute())
-    temporal=problemas.data
-    with open('cuentas.json',"w") as f:
-        f.write(json.dumps(temporal, indent=4))
+
+    respuesta = supabase.table("Problems").select("*").execute()
+    data_nube = respuesta.data
+
+  
+    with open("archivos.json", 'r') as f:
+        problemas_locales = json.load(f)
+
+
+    for problema_nube in data_nube:
+        id_problema = problema_nube['id']
+        nuevos_valores = problema_nube['info']
+
+    
+        for problema_local in problemas_locales:
+            if problema_local[7] == id_problema:
+                problema_local[3:6] = nuevos_valores
+                break
+    with open("archivos.json", 'w') as f:
+        json.dump(problemas_locales, f, indent=4)
 
 def download():
     cuentas=(supabase.table("Users").select("*").execute())
@@ -32,9 +43,10 @@ def download_problem(id):
     nuevos_valores = datos_nube['info']
     with open("archivos.json", 'r') as f:
         problemas_locales = json.load(f)
-    
-    for ix, i in enumerate(nuevos_valores):
-        problemas_locales[id][ix+3] = i
+    print(nuevos_valores)
+    problemas_locales[id][3] = nuevos_valores[0]
+    problemas_locales[id][4] = nuevos_valores[1]
+    problemas_locales[id][5] = nuevos_valores[2]
         
     with open("archivos.json", 'w') as f:
         json.dump(problemas_locales, f, indent=4)
@@ -51,16 +63,17 @@ def change_problem(id,info):
 def new(k):
     response = (supabase.table("Problems").insert({"id":k[-1],"info":k}).execute())
 
-def wipeout(): ##NO USAR, REINICIA todO DE PROBLEMAS
-    for ex in archivos:
-        ex[3:6]=[0,[],[]]
+# def wipeout(): ##NO USAR, REINICIA todO DE PROBLEMAS
+#     for ex in v.archivos:
+#         ex[3:6]=[0,[],[]]
 
-    with open('archivos.json', 'w') as f:
-        json.dump(archivos, f, indent=4)
+#     with open('archivos.json', 'w') as f:
+#         json.dump(v.archivos, f, indent=4)
 
-def subir():
-    for k in archivos:
-        change_problem(k[-1],k[3:6])
+# def subir():
+#     for k in v.archivos:
+#         p = tuple([k[x] for x in range(3,6)])
+#         change_problem(k[-1],p)
 
 # cuentasbot=['CrimsonFox', 'AzureWolf07', 'EmeraldHawk123', 'GoldenLionX', 'IndigoTigerPro', 'JadePumaGamer', 'LavenderJaguarYT', 'MagentaEaglePlays', 'OnyxSharkTV', 'OrchidSnakeXtreme', 'PeridotBear22', 'QuartzBadger007', 'RubyRabbitKnight', 'SapphireDeerLord', 'TealOwlQueen', 'TopazCatKing', 'UmberMouseLegend', 'VioletHorseAce', 'WhiteSquirrelOne', 'YellowCougarMax', 'AmberLeopardLite', 'BronzePandaPlus', 'CopperMonkeyUltra', 'DiamondHippoGod', 'GarnetGorillaXPro', 'MoonstoneRhinoYTMax', 'OpalGoatPrimeAce', 'PearlZebraGodOne', 'PlatinumSpiderMaxLite', 'SilverTurtlePlusUltra']
 
