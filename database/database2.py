@@ -2,31 +2,23 @@ import json
 from dotenv import load_dotenv
 load_dotenv()
 import os
+import variables as v
 from supabase import create_client 
 url= os.environ.get("SUPABASE_URL")
 key= os.environ.get("SUPABASE_KEY")
 supabase= create_client(url, key)
+import random
+import guardar
 def downloadall():
+    problemas=(supabase.table("Problems").select("*").execute())
+    temporal=[x['info'] for x in problemas.data]
+    for ix,x in enumerate(temporal):
+        v.archivos[ix][3:6]=x
+        
 
-    respuesta = supabase.table("Problems").select("*").execute()
-    data_nube = respuesta.data
-
-  
-    with open("archivos.json", 'r') as f:
-        problemas_locales = json.load(f)
-
-
-    for problema_nube in data_nube:
-        id_problema = problema_nube['id']
-        nuevos_valores = problema_nube['info']
+    guardar.guardar()
 
     
-        for problema_local in problemas_locales:
-            if problema_local[7] == id_problema:
-                problema_local[3:6] = nuevos_valores
-                break
-    with open("archivos.json", 'w') as f:
-        json.dump(problemas_locales, f, indent=4)
 
 def download():
     cuentas=(supabase.table("Users").select("*").execute())
@@ -63,17 +55,17 @@ def change_problem(id,info):
 def new(k):
     response = (supabase.table("Problems").insert({"id":k[-1],"info":k}).execute())
 
-# def wipeout(): ##NO USAR, REINICIA todO DE PROBLEMAS
-#     for ex in v.archivos:
-#         ex[3:6]=[0,[],[]]
+def wipeout(): ##NO USAR, REINICIA todO DE PROBLEMAS
+    for ex in v.archivos:
+        ex[3:6]=[0,[],[]]
 
-#     with open('archivos.json', 'w') as f:
-#         json.dump(v.archivos, f, indent=4)
+    with open('archivos.json', 'w') as f:
+        json.dump(v.archivos, f, indent=4)
 
-# def subir():
-#     for k in v.archivos:
-#         p = tuple([k[x] for x in range(3,6)])
-#         change_problem(k[-1],p)
+def subir():
+    for k in v.archivos:
+        p = tuple([k[x] for x in range(3,6)])
+        change_problem(k[-1],p)
 
 # cuentasbot=['CrimsonFox', 'AzureWolf07', 'EmeraldHawk123', 'GoldenLionX', 'IndigoTigerPro', 'JadePumaGamer', 'LavenderJaguarYT', 'MagentaEaglePlays', 'OnyxSharkTV', 'OrchidSnakeXtreme', 'PeridotBear22', 'QuartzBadger007', 'RubyRabbitKnight', 'SapphireDeerLord', 'TealOwlQueen', 'TopazCatKing', 'UmberMouseLegend', 'VioletHorseAce', 'WhiteSquirrelOne', 'YellowCougarMax', 'AmberLeopardLite', 'BronzePandaPlus', 'CopperMonkeyUltra', 'DiamondHippoGod', 'GarnetGorillaXPro', 'MoonstoneRhinoYTMax', 'OpalGoatPrimeAce', 'PearlZebraGodOne', 'PlatinumSpiderMaxLite', 'SilverTurtlePlusUltra']
 

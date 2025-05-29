@@ -2,7 +2,7 @@ import table
 import variables as v
 import menus
 from pynput import keyboard as kb 
-from .database import database2 as db 
+from database import database2 as db 
 from guardar import guardar
 def returnfalse(): return False
 class problem_view_menu(menus.menu):

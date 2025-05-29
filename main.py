@@ -154,6 +154,5 @@ def menu():
     os.system('cls')
     opt=[['Lista de problemas',problemos],['Problema Aleatorio', random_problem], ['Opciones de cuenta', call_back_opt], ['Rankings', leaderboard] ,['Salir', exit]]
     while True:menus.menu(opt=opt,name='Menu principal')
-
-db.downloadall
+db.downloadall()
 main_menu()
