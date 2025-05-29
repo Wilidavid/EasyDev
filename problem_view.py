@@ -7,6 +7,7 @@ from guardar import guardar
 def returnfalse(): return False
 class problem_view_menu(menus.menu):
     def __init__(self, id, ix=-1, p=True):
+        db.download_problem(id)
         self.keys = {kb.Key.up: self.up,kb.Key.down: self.down ,kb.Key.enter:self.enter}
         self.functs = [self.marcar_hecho,self.marcar_favorito, returnfalse]
         self.index=ix
@@ -30,8 +31,9 @@ class problem_view_menu(menus.menu):
         else:
             v.cuentas[v.usuario_actual][5].remove(self.problem[-1])
             v.archivos[self.problem[-1]][5].remove(v.usuario_actual)
-        db.change_problem(self.problem[7], [self.problem[2:6]])
+        db.change_problem(self.problem[7], self.problem[2:6])
         db.change_usuario(v.usuario_actual,v.cuentas[v.usuario_actual])
+        db.download_problem(id)
         return guardar()    
         
 
@@ -42,8 +44,9 @@ class problem_view_menu(menus.menu):
         else:
             v.cuentas[v.usuario_actual][4].remove(self.problem[-1])
             v.archivos[self.problem[-1]][4].remove(v.usuario_actual)
-        db.change_problem(self.problem[7], [self.problem[2:6]])
+        db.change_problem(self.problem[7], self.problem[2:6])
         db.change_usuario(v.usuario_actual,v.cuentas[v.usuario_actual])
+        db.download_problem(id)
         return guardar()
 
     def enter(self):

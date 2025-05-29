@@ -1,5 +1,5 @@
-
 import os
+from IPython.display import clear_output
 c={
     "princ" : '\033[95m',
     "azul" : '\033[94m',
@@ -11,11 +11,13 @@ c={
     "negrilla" : '\033[1m',
     "subrayado":'\033[4m'
     }
+
 def show(elements, selectedcord=-1, skip=None):
     
-    os.system("cls")
-    print("\n"*5)
     
+    os.system('cls')
+    clear_output(wait=True)
+
     bordercolor="azul"
     selectedcolor="amarillo"
     main_color="cyan"
@@ -49,6 +51,7 @@ def show(elements, selectedcord=-1, skip=None):
             print(f"{it}", end=c[bordercolor]+"|")
         print()
         if skipping and ix2 in skip or not skipping: print(c[bordercolor]+line)
+    clear_output(wait=True)
 
 
 

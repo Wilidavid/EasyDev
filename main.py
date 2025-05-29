@@ -11,31 +11,35 @@ import leaderboards
 from pynput import keyboard as kb
 from guardar import guardar
 
+
+
+
 def login():
-    #db.download()
+    db.download()
     input()
     os.system('cls')
     contra=None
     usuario='default'
     while v.cuentas[usuario][0]!=contra:
         os.system('cls')
-        usuario=input('Por favor digite su usuario, ingrese "Volver" para volver al menu de inicio: ')
+        usuario=input('Por favor digite su usuario, ingrese "Volver" para volver al menu de inicio: ').lower()
         if usuario.lower() == 'volver':
             main_menu()
             return
-        contra=input('Por favor digite la contraseña: ')
+        contra=gp('Por favor digite la contraseña: ')
         if usuario not in v.cuentas.keys() or v.cuentas[usuario][0]!=contra:
             print("\n\nUsuario o contraseña incorrectos, intente de nuevo porfavor\n\n")
             time.sleep(2) 
+            usuario='default'
     v.usuario_actual=usuario
     ftmenu()
 
 
 def register():
-    #db.download()
+    db.download()
     input()
     os.system('cls')
-    usuario=input('Por favor digite el usuario de la cuenta que quiere crear, digite "Volver" para volver al menu de inicio: ')
+    usuario=input('Por favor digite el usuario de la cuenta que quiere crear, digite "Volver" para volver al menu de inicio: ').lower()
     if usuario.lower() == 'volver':return False
     contraseña=input('Por favor ingrese la contraseña que su nueva cuenta va a tener: ')
     if usuario in v.cuentas.keys():
@@ -66,7 +70,7 @@ def change_order_types(n):
     menus.menu(name='Tipo de orden', opt=on, args=True)
 
 def change_order():
-    oporden = [['Ordenar por nombre', change_order_types, [0]],['Ordenar por link',change_order_types, [1]],   ['Ordenar por veces visto',change_order_types, [3]], ['Ordenar por veces favorito', change_order_types, [4]], ['Volver', config_filter, []]]
+    oporden = [['Ordenar por nombre', change_order_types, [0]],['Ordenar por link',change_order_types, [1]],   ['Ordenar por veces visto',change_order_types, [3]], ['Ordenar por veces favorito', change_order_types, [5]],['Ordenar por veces hecho', change_order_types, [4]], ['Volver', config_filter, []]]
     menus.menu(opt=oporden,name='Ajustar orden', args=True)
 
 def problemas_hechos_callback(n):
@@ -139,7 +143,8 @@ def problemos():
 def random_problem():
     f = problem_table.make_table(just_the_table=True).elements_raw
     id= f[random.randint(0,len(f)-1)][7]
-    problem_view.problem_view_menu(id)
+    p = True
+    while problem_view.problem_view_menu(id, p = p).rt:p=False
     menu()
 
 def ftmenu():
