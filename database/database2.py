@@ -21,7 +21,7 @@ def register(user,info):
     response = (supabase.table("Users").insert({"username":user,"Info":info}).execute())
 
 def change_problem(id,info):
-    response=supabase.table("Problems").update({"info": info[2:6]}).eq("id", id).execute()
+    response=supabase.table("Problems").update({"info": info}).eq("id", id).execute()
 
 def new(k):
-    response = (supabase.table("Problems").insert({"id":k[-1],"info":k[2:6]}).execute())
+    response = (supabase.table("Problems").insert({"id":k[-1],"info":k}).execute())

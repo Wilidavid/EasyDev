@@ -11,10 +11,10 @@ c={
     "negrilla" : '\033[1m',
     "subrayado":'\033[4m'
     }
-def show(elements, selectedcord, skip=None):
+def show(elements, selectedcord=-1, skip=None):
     
     os.system("cls")
-    print("\n."*5)
+    print("\n"*5)
     
     bordercolor="azul"
     selectedcolor="amarillo"
