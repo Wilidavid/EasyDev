@@ -39,6 +39,7 @@ def download_problem(id):
     problemas_locales[id][3] = nuevos_valores[0]
     problemas_locales[id][4] = nuevos_valores[1]
     problemas_locales[id][5] = nuevos_valores[2]
+    v.archivos[id]=problemas_locales[id]
         
     with open("archivos.json", 'w') as f:
         json.dump(problemas_locales, f, indent=4)
