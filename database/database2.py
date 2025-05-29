@@ -31,7 +31,6 @@ def download_problem(id):
         if problema_local[7] == id:
             problemas_locales[i][3:6] = nuevos_valores
             break    
-    v.archivos[id]=problemas_locales
     with open("archivos.json", 'w') as f:
         json.dump(problemas_locales, f, indent=4)
     
