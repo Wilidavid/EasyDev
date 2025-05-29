@@ -12,7 +12,7 @@ from pynput import keyboard as kb
 from guardar import guardar
 
 def login():
-    #db.download()
+    db.download()
     input()
     os.system('cls')
     contra=None
@@ -32,7 +32,7 @@ def login():
 
 
 def register():
-    #db.download()
+    db.download()
     input()
     os.system('cls')
     usuario=input('Por favor digite el usuario de la cuenta que quiere crear, digite "Volver" para volver al menu de inicio: ')
